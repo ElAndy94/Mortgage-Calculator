@@ -1,0 +1,100 @@
+<div class="container">
+  <!-- <section class="card register" ng-app> -->
+  <div class="row">
+    <div class="col">
+      <form [formGroup]="myform" (change)="mortgageOffers()" novalidate> <!-- change 'mortgageOffers' updates everytime you click on the page -->
+        <div class="textintro">
+          <h1>Online Application</h1>
+        </div>
+
+        <div class="form-group">  <!-- All the Text boxes -->
+          <label class='centre-block'>Last Name:
+            <input class="form-control" [(ngModel)]="customer.lastname" formControlName="lastname">
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label class='centre-block'>Email Address:
+            <input class="form-control" [(ngModel)]="customer.email" formControlName="email">
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label class='centre-block'>Phone Number:
+            <input class="form-control" [(ngModel)]="customer.phoneNumber" formControlName="phoneNumber">
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label class='centre-block'>Your Deposit:
+            <input class="form-control" [(ngModel)]="customer.deposit" formControlName="deposit">
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label class='centre-block'>Your Annual Salary:
+            <input class="form-control" [(ngModel)]="customer.annualSalary" formControlName="annualSalary">
+          </label>
+        </div>
+
+        <div class="form-group">
+          <p><b>{{customer.messagesTwo}}</b></p>
+          <label class='centre-block'>The Borrow Amount:
+            <input class="form-control" [(ngModel)]="customer.borrow" formControlName="borrowAmount">
+          </label>
+        </div>
+
+            <div class="form-group radio"> <!-- Radio buttons for loan durations -->
+        <h4> Loan Duration </h4>
+
+        <label class='centre-block'><input type ="radio" [(ngModel)]="customer.length"
+              formControlName="loanDuration" value="10">10</label>
+
+        <label class="center-block"><input type="radio" [(ngModel)]="customer.length"
+               formControlName="loanDuration" value="20">20</label>
+
+        <label class="center-block"><input type="radio" [(ngModel)]="customer.length"
+                formControlName="loanDuration" value="30">30</label>
+      </div>
+
+        <div class="form-check">
+          <h4> Bank Account Holder? </h4>
+
+          <label class="form-check-label">  <!-- checkbox to find out if client has an account -->
+             <input type="checkbox" class="form-check-input" [(ngModel)]="customer.bank" formControlName="account">
+          </label>
+        </div>
+
+      </form>
+    </div>
+    <div class="col">
+      <div *ngIf='myform.valid'> <!--if my form is valid then -->
+        <h1> Avaliable Offers </h1>
+      <table class="table table-bordered table-inverse">
+        <thead>
+          <tr>
+            <th>Offers Avaliable</th>
+            <th>Interest Rate</th>
+            <th>Mortgage Length</th>
+            <th>Amount Borrowed</th>
+            <th>Amount Repayable</th>
+            <th>Monthly Repayments</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let offer of offers; let count=index"> <!--creates my table -->
+            <th>{{offer.offerNumber}}</th>
+            <th>{{offer.interestRate | percent}}</th>
+            <th>{{offer.mortgageLength}}</th>
+            <th>{{offer.amountBorrowed | currency:'GBP':'symbol'}}</th>
+            <th>{{offer.amountRepayable | currency:'GBP':'symbol'}}</th>
+            <th>{{offer.monthlyRepayments | currency:'GBP':'symbol'}}<span *ngIf="count===0" class="badge badge-secondary">BEST DEAL!</span></th> <!-- NgIf is set so if count of the offer = 0 which will be at the top it gives it the badge with best deal -->
+          </tr>
+        </tbody>
+      </table>
+      <p><b>{{customer.messages}}</b></p> <!-- Message notifying client that they could benfit from better offers -->
+    </div>
+
+    </div>
+  </div>
+</div>
